@@ -1,4 +1,4 @@
-//PhoneN|ReportN
+//phoneNum|reportN
 0816024380|5
 0814531535|9
 0628737188|11
