@@ -9,11 +9,6 @@ struct scammer_phone{
     int reportN; // reportN = จำนวนแจ้ง
 };
 
-//func สำหรับเพิ่มข้อมูลใน struct !!กันลืม
-void NewReport(scammer_phone *sp){
-    (*sp).reportN++; //เข้าถึงสมาชิก struct ด้วย pointer
-}
-
 int main(){
     vector<scammer_phone> scammer_data;
     ifstream source;
@@ -33,9 +28,9 @@ int main(){
                 continue;
             }
             if(!afterBar){
-                sp.phoneNum += phone[i];
+                sp.phoneNum += phone[i]; //ก่อน | คือเบอร์
             }else{
-                sp.reportN = sp.reportN * 10 + (phone[i] - '0');
+                sp.reportN = sp.reportN * 10 + (phone[i] - '0'); //สูตรแปลง char เป็น int
             }
         }
         scammer_data.push_back(sp);
@@ -54,6 +49,16 @@ int main(){
             if(risk > 100){
                 risk = 100;
             }
+
+            cout << "found.\n";
+            cout << "Phone Number : " << scammer_data[i].phoneNum << endl;
+            cout << "Report Number : " << scammer_data[i].reportN << endl;
+            cout << "Risk Level : " << risk << "%" << endl;
+            found = true;
+            break;
         }
+    }
+    if(!found){
+        cout << "can not found." << endl;
     }
 }
