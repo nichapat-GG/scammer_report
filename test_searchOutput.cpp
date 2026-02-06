@@ -46,18 +46,24 @@ int main(){
     for(int i = 0; i < scammer_data.size(); i++){
         if(phoneForSearch == scammer_data[i].phoneNum){
             int risk;
+            string riskLevel;
             if(scammer_data[i].reportN > 5){
                 risk = 100;
+                riskLevel = "High";
+            }else if(scammer_data[i].reportN >= 3){
+                risk = scammer_data[i].reportN*20;
+                riskLevel = "Medium";
             }else{
                 risk = scammer_data[i].reportN*20;
+                riskLevel = "Low";
             }
 
             cout << "===============================\n";
-            cout << "|  Phone Number : " << scammer_data[i].phoneNum << "  |" << endl;
-            cout << "|  Report Number : " << scammer_data[i].reportN << "          |" << endl;
-            cout << "|  Risk Level : " << risk << "%          |" << endl;
+            cout << "   Phone Number : " << scammer_data[i].phoneNum << endl;
+            cout << "   Report Number : " << scammer_data[i].reportN << endl;
+            cout << "   Risk Level : " << risk << "% (" << riskLevel << ")" << endl;
             if(risk == 100){
-                cout << "|  WARNING : Do not answer!   |\n";
+                cout << " ! WARNING : Do not answer !\n";
             }
             cout << "===============================\n";
             found = true;
