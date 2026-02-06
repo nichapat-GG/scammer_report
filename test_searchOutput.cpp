@@ -45,15 +45,21 @@ int main(){
 
     for(int i = 0; i < scammer_data.size(); i++){
         if(phoneForSearch == scammer_data[i].phoneNum){
-            int risk = scammer_data[i].reportN * 10;
-            if(risk > 100){
+            int risk;
+            if(scammer_data[i].reportN > 5){
                 risk = 100;
+            }else{
+                risk = scammer_data[i].reportN*20;
             }
 
-            cout << "found.\n";
-            cout << "Phone Number : " << scammer_data[i].phoneNum << endl;
-            cout << "Report Number : " << scammer_data[i].reportN << endl;
-            cout << "Risk Level : " << risk << "%" << endl;
+            cout << "===============================\n";
+            cout << "|  Phone Number : " << scammer_data[i].phoneNum << "  |" << endl;
+            cout << "|  Report Number : " << scammer_data[i].reportN << "          |" << endl;
+            cout << "|  Risk Level : " << risk << "%          |" << endl;
+            if(risk == 100){
+                cout << "|  WARNING : Do not answer!   |\n";
+            }
+            cout << "===============================\n";
             found = true;
             break;
         }
