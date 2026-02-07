@@ -47,10 +47,10 @@ int main(){
         if(phoneForSearch == scammer_data[i].phoneNum){
             int risk;
             string riskLevel;
-            if(scammer_data[i].reportN > 5){
+            if(scammer_data[i].reportN > 9){
                 risk = 100;
                 riskLevel = "High";
-            }else if(scammer_data[i].reportN >= 3){
+            }else if(scammer_data[i].reportN >= 5){
                 risk = scammer_data[i].reportN*20;
                 riskLevel = "Medium";
             }else{
