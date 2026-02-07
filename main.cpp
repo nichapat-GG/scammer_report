@@ -51,32 +51,44 @@ int main(){
     for(int i = 0; i < scammer_data.size(); i++){
         if(phoneForSearch == scammer_data[i].phoneNum){
             int risk;
+            int reportNum = scammer_data[i].reportN;
             string riskLevel;
-            if(scammer_data[i].reportN > 9){
+            if(reportNum > 9){
                 risk = 100;
                 riskLevel = "High";
-            }else if(scammer_data[i].reportN >= 5){
-                risk = scammer_data[i].reportN*20;
+            }else if(reportNum >= 5){
+                risk = reportNum*20;
                 riskLevel = "Medium";
             }else{
-                risk = scammer_data[i].reportN*20;
+                risk = reportNum*20;
                 riskLevel = "Low";
             }
 
             cout << "===============================\n";
             cout << "   Phone Number : " << scammer_data[i].phoneNum << endl;
-            cout << "   Report Number : " << scammer_data[i].reportN << endl;
+            cout << "   Report Number : " << reportNum << endl;
             cout << "   Risk Level : " << risk << "% (" << riskLevel << ")" << endl;
             if(risk == 100){
                 cout << " ! WARNING : Do not answer !\n";
             }
             cout << "===============================\n";
+
+            NewReport(&scammer_data[i]); //เพิ่มจำนวนการแจ้งทันทีที่มีการค้นเจอข้อมูล
+
+            ofstream outFile("scammer_data.txt");
+            for(int i = 0; i < scammer_data.size(); i++){
+                outFile << scammer_data[i].phoneNum << "|" << scammer_data[i].reportN << endl;
+            }
+            outFile.close();
+            
             found = true;
             break;
         }
     }
     if(!found){
-        cout << "can not found." << endl;
+        cout << "===============================\n";
+        cout << "         can not found." << endl;
+        cout << "===============================\n";
         
         char ans;
         cout << "Do you want to report this number? (y/n) : "; //จะแจ้งเพิ่มไหม
@@ -95,6 +107,8 @@ int main(){
             outFile.close();
 
             cout << " << Thank you for New Report >> " << endl;
+        }else{
+            cout << " << Thank you >> ";
         }
     }
 }
