@@ -52,10 +52,10 @@ int main(){
         if(phoneForSearch == scammer_data[i].phoneNum){
             int risk;
             string riskLevel;
-            if(scammer_data[i].reportN > 5){
+            if(scammer_data[i].reportN > 9){
                 risk = 100;
                 riskLevel = "High";
-            }else if(scammer_data[i].reportN >= 3){
+            }else if(scammer_data[i].reportN >= 5){
                 risk = scammer_data[i].reportN*20;
                 riskLevel = "Medium";
             }else{
@@ -79,11 +79,22 @@ int main(){
         cout << "can not found." << endl;
         
         char ans;
-        cout << "Do you want to report this number? (y/n) : ";
+        cout << "Do you want to report this number? (y/n) : "; //จะแจ้งเพิ่มไหม
         cin >> ans;
 
         if(ans == 'y' || ans == 'Y'){
-            
+            //สร้างข้อมูลใหม่ เบอร์ที่แจ้งกับเริ่มต้นแจ้งครั้งที่ 1
+            scammer_phone newPhone;
+            newPhone.phoneNum = phoneForSearch;
+            newPhone.reportN = 1;
+            scammer_data.push_back(newPhone);
+
+            ofstream outFile;
+            outFile.open("scammer_data.txt", ios::app); //ios::app เขียนข้อมูลต่อท้าย ข้อมูลเก่าไม่โดนลบ
+            outFile <<phoneForSearch << "|1\n" << endl;
+            outFile.close();
+
+            cout << " << Thank you for New Report >> " << endl;
         }
     }
 }
