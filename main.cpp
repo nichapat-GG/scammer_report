@@ -108,7 +108,19 @@ int main(){
 
             cout << " << Thank you for New Report >> " << endl;
         }else{
-            cout << " << Thank you >> ";
+            cout << "Okay";
         }
     }
+
+    cout << "\n==========================================\n";
+    cout << "\n       << SCAM PREVENTION TIPS >> \n";
+
+    cout << "\n  - Do not share personal information\n";
+    cout << "  - Do not transfer money to strangers\n";
+    cout << "  - Beware of fake officials\n";
+    cout << "  - Always verify before acting\n";
+
+    cout << "\n==========================================\n";
+
+    cout << "\nThank you."; 
 }
