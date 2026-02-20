@@ -122,5 +122,5 @@ int main(){
 
     cout << "\n==========================================\n";
 
-    cout << "\nThank you."; 
+    cout << "\nThank you.\n"; 
 }
