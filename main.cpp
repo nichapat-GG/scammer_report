@@ -14,6 +14,15 @@ void NewReport(scammer_phone *sp){
     (*sp).reportN++; //เข้าถึงสมาชิก struct ด้วย pointer
 }
 
+// func ป้องกันสแปมไม่ให้จำนวนการแจ้งข้อมูลพุ่งเกินความจำเป็น
+float preventSpam(int reportN){
+    float n = 0;
+    for(int i = 0; i < reportN; i++){
+        n += 1.0 / (1.0 + n);
+    }
+    return n;
+}
+
 int main(){
     vector<scammer_phone> scammer_data;
     ifstream source;
@@ -47,26 +56,24 @@ int main(){
     cin >> phoneForSearch;
 
     bool found = false;
-
     for(int i = 0; i < scammer_data.size(); i++){
         if(phoneForSearch == scammer_data[i].phoneNum){
-            int risk;
-            int reportNum = scammer_data[i].reportN;
+            float reportNum = preventSpam(scammer_data[i].reportN);
+            int risk = reportNum * 25;
+            if(risk > 100) risk = 100;
+
             string riskLevel;
-            if(reportNum > 9){
-                risk = 100;
+            if(risk >= 70){
                 riskLevel = "High";
-            }else if(reportNum >= 5){
-                risk = reportNum*20;
+            }else if(risk >= 40){
                 riskLevel = "Medium";
             }else{
-                risk = reportNum*20;
                 riskLevel = "Low";
             }
 
             cout << "===============================\n";
             cout << "   Phone Number : " << scammer_data[i].phoneNum << endl;
-            cout << "   Report Number : " << reportNum << endl;
+            cout << "   Report Number : " << scammer_data[i].reportN << endl;
             cout << "   Risk Level : " << risk << "% (" << riskLevel << ")" << endl;
             if(risk == 100){
                 cout << " ! WARNING : Do not answer !\n";
@@ -111,16 +118,12 @@ int main(){
             cout << "Okay";
         }
     }
-
     cout << "\n==========================================\n";
     cout << "\n       << SCAM PREVENTION TIPS >> \n";
-
     cout << "\n  - Do not share personal information\n";
     cout << "  - Do not transfer money to strangers\n";
     cout << "  - Beware of fake officials\n";
     cout << "  - Always verify before acting\n";
-
     cout << "\n==========================================\n";
-
     cout << "\nThank you.\n"; 
 }
